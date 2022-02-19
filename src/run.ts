@@ -22,7 +22,7 @@ export const run = async (): Promise<void> => {
   }
 
   const pipeline = promisify(stream.pipeline);
-  const assetURL = `https://github.com/${process.env.GITHUB_REPOSITORY}/releases/download/${actionRef}/app_${process.platform}_${process.arch}`;
+  const assetURL = `https://github.com/suzuki-shunsuke/test-github-action-with-go/releases/download/${actionRef}/app_${process.platform}_${process.arch}`;
 
   await pipeline(
     got.stream(assetURL),
