@@ -27,7 +27,7 @@ export const run = async (): Promise<void> => {
   await pipeline(
     got.stream(assetURL),
     fs.createWriteStream(binPath, {
-      mode: 0o600,
+      mode: 0o700,
     }),
   );
   await exec.exec(binPath);
