@@ -1,0 +1,8 @@
+name: Write GitHub Actions with Go
+description: Write GitHub Actions with Go
+inputs:
+  action_ref:
+    default: ${{ github.action_ref }}
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
