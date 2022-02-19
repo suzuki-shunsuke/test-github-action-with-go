@@ -8648,7 +8648,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     const pipeline = (0, util_1.promisify)(node_stream_1.default.pipeline);
-    const assetURL = `https://github.com/${process.env.GITHUB_REPOSITORY}/releases/download/${actionRef}/app_${process.platform}_${process.arch}`;
+    const assetURL = `https://github.com/suzuki-shunsuke/test-github-action-with-go/releases/download/${actionRef}/app_${process.platform}_${process.arch}`;
     yield pipeline(got_1.default.stream(assetURL), fs.createWriteStream(binPath));
     yield exec.exec(binPath);
 });
