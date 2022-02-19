@@ -1,0 +1,23 @@
+---
+project_name: app
+dist: build
+builds:
+- main: cmd/app/main.go
+  env:
+  - CGO_ENABLED=0
+  goos:
+  - windows
+  - darwin
+  - linux
+  goarch:
+  - amd64
+  - arm64
+archives:
+- format: binary
+  replacements:
+    # https://nodejs.org/api/process.html#processplatform
+    # https://nodejs.org/api/process.html#processarch
+    amd64: x64
+  name_template: "{{.ProjectName}}_{{.Os}}_{{.Arch}}"
+release:
+  prerelease: true
