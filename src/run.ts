@@ -19,6 +19,7 @@ function download(opt: downloadOpt): Promise<void> {
   const pipeline = promisify(stream.pipeline);
   const assetURL = `https://github.com/suzuki-shunsuke/test-github-action-with-go/releases/download/${opt.actionRef}/app_${opt.platform}_${opt.arch}`;
 
+  core.info(`Downloading ${assetURL}...`);
   return pipeline(
     got.stream(assetURL),
     fs.createWriteStream(opt.binPath, {
@@ -30,7 +31,7 @@ function download(opt: downloadOpt): Promise<void> {
 export const run = async (): Promise<void> => {
   const refPattern = /v[0-9.-]+/;
   const actionRef = core.getInput('action_ref');
-  core.info(actionRef);
+  core.info(`action ref: ${actionRef}`);
   const binPath = path.join(__dirname, 'app');
   if (!refPattern.test(actionRef)) {
     await exec.exec('go', ['build', '-o', 'dist/app', './cmd/app'], {
@@ -46,5 +47,6 @@ export const run = async (): Promise<void> => {
     arch: process.arch,
     binPath: binPath,
   });
+  core.info(`Executing ${binPath}`);
   await exec.exec(binPath);
 }

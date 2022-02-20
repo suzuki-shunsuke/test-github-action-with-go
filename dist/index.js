@@ -8638,6 +8638,7 @@ const node_stream_1 = __importDefault(__nccwpck_require__(4492));
 function download(opt) {
     const pipeline = (0, util_1.promisify)(node_stream_1.default.pipeline);
     const assetURL = `https://github.com/suzuki-shunsuke/test-github-action-with-go/releases/download/${opt.actionRef}/app_${opt.platform}_${opt.arch}`;
+    core.info(`Downloading ${assetURL}...`);
     return pipeline(got_1.default.stream(assetURL), fs.createWriteStream(opt.binPath, {
         mode: 0o700,
     }));
@@ -8645,7 +8646,7 @@ function download(opt) {
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const refPattern = /v[0-9.-]+/;
     const actionRef = core.getInput('action_ref');
-    core.info(actionRef);
+    core.info(`action ref: ${actionRef}`);
     const binPath = path.join(__dirname, 'app');
     if (!refPattern.test(actionRef)) {
         yield exec.exec('go', ['build', '-o', 'dist/app', './cmd/app'], {
@@ -8660,6 +8661,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         arch: process.arch,
         binPath: binPath,
     });
+    core.info(`Executing ${binPath}`);
     yield exec.exec(binPath);
 });
 exports.run = run;
